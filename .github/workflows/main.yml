@@ -35,7 +35,7 @@ jobs:
     - name: Package Release Files
       run: |
         mkdir -p release/rproxy
-        cp -f target/release/rproxy release/rproxy
+        cp -f target/release/rpxy release/rproxy
 
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@v5.1.0
@@ -50,6 +50,6 @@ jobs:
           systemctl stop rproxy
           rm /opt/rproxy
         SCRIPT_AFTER: |
-          chown jreset:jreset /opt/rproxy
-          chmod 757 /opt/rproxy
+          chown ${{ secrets.SSH_SUBUSER }}:${{ secrets.SSH_SUBUSER }} /opt/rproxy
+          chmod 755 /opt/rproxy
           systemctl start rproxy
