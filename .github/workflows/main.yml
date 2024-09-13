@@ -27,6 +27,7 @@ jobs:
 
     - name: Build
       run: |
+        git submodule update --init
         cargo build --no-default-features --features=http3-s2n,cache,rustls-backend,acme --release
 
     - name: Package Release Files
