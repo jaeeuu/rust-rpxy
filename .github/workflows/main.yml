@@ -7,15 +7,14 @@ concurrency:
 on:
   push:
     branches:
-      - master
+      - develop
   pull_request:
     branches:
-      - master
+      - develop
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    if: github.event.head_commit.message != '[skip]'
 
     steps:
     - uses: actions/checkout@v4.1.7
@@ -46,7 +45,7 @@ jobs:
         TARGET: "/opt/rproxy"
         SCRIPT_BEFORE: |
           systemctl stop rproxy
-          rm -f /opt/rproxy
+          rm /opt/rproxy
         SCRIPT_AFTER: |
           chown jreset:jreset /opt/rproxy
           chmod 757 /opt/rproxy
